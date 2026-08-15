@@ -1,10 +1,15 @@
-package com.hermesafe.domain;
+package com.hermesafe.application.service;
+
+import com.hermesafe.domain.repository.InventoryRepository;
 
 public class OrderService {
 
     private final InventoryRepository inventoryRepository;
 
     public OrderService(InventoryRepository inventoryRepository) {
+        if (inventoryRepository == null) {
+            throw new IllegalArgumentException("Inventory repository cannot be null");
+        }
         this.inventoryRepository = inventoryRepository;
     }
 

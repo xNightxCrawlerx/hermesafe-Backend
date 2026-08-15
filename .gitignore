@@ -1,39 +1,39 @@
+# Maven Target & Build Output
 target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-.kotlin
-
-### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
-*.iws
-*.iml
-*.ipr
-
-### Eclipse ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
 build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+*.class
+*.jar
+*.war
+*.ear
 
-### VS Code ###
+# Coverage & Report Files
+*.exec
+jacoco.exec
+target/site/jacoco/
+
+# Logs
+*.log
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Eclipse
+.classpath
+.project
+.settings/
+.factorypath
+.apt_generated
+
+# VS Code
 .vscode/
 
-### Mac OS ###
+# OS Generated Files
 .DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db

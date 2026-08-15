@@ -1,14 +1,24 @@
-package com.hermesafe.domain;
+package com.hermesafe.domain.entity;
 
-public class InventoryManager {
+import com.hermesafe.domain.valueobject.ProductId;
 
+public class InventoryItem {
+    private final ProductId productId;
     private int stock;
 
-    public InventoryManager(int initialStock) {
+    public InventoryItem(ProductId productId, int initialStock) {
+        if (productId == null) {
+            throw new IllegalArgumentException("Product ID cannot be null");
+        }
         if (initialStock < 0) {
             throw new IllegalArgumentException("Initial stock cannot be negative");
         }
+        this.productId = productId;
         this.stock = initialStock;
+    }
+
+    public ProductId getProductId() {
+        return productId;
     }
 
     public int getStock() {
@@ -19,7 +29,7 @@ public class InventoryManager {
         if (amount <= 0) {
             throw new IllegalArgumentException("Amount must be positive :)");
         }
-        stock += amount;
+        this.stock += amount;
     }
 
     public void removeStock(int amount) {
@@ -29,6 +39,10 @@ public class InventoryManager {
         if (amount > stock) {
             throw new IllegalStateException("Not enough stock available");
         }
-        stock -= amount;
+        this.stock -= amount;
+    }
+
+    public boolean hasAvailableStock(int requestedQuantity) {
+        return this.stock >= requestedQuantity;
     }
 }

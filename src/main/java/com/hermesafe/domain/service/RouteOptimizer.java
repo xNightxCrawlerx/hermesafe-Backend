@@ -1,5 +1,6 @@
-package com.hermesafe.domain;
+package com.hermesafe.domain.service;
 
+import com.hermesafe.domain.entity.Route;
 import java.util.*;
 
 public class RouteOptimizer {
@@ -28,5 +29,13 @@ public class RouteOptimizer {
             sortedWarehouses.add(entry.getKey());
         }
         return sortedWarehouses;
+    }
+
+    public Optional<Route> findShortestRoute(List<Route> routes) {
+        if (routes == null || routes.isEmpty()) {
+            return Optional.empty();
+        }
+        return routes.stream()
+                .min(Comparator.comparingInt(r -> r.getDistance().kilometers()));
     }
 }

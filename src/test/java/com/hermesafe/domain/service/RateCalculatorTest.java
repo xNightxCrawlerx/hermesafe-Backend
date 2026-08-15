@@ -1,5 +1,7 @@
-package com.hermesafe.domain;
+package com.hermesafe.domain.service;
 
+import com.hermesafe.domain.entity.Package;
+import com.hermesafe.domain.valueobject.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,48 +9,42 @@ class RateCalculatorTest {
 
     @Test
     void shouldThrowExceptionForNegativeWeight() {
-        // Arrange
         RateCalculator calculator = new RateCalculator();
-
-        // Act & Assert
-        assertThrows(IllegalArgumentException.class, () -> {
-            calculator.calculate(-1, 50, false);
-        });
+        assertThrows(IllegalArgumentException.class, () -> calculator.calculate(-1, 50, false));
     }
 
     @Test
     void shouldApplyBaseRateForLightPackage() {
-        // Arrange
         RateCalculator calculator = new RateCalculator();
-
-        // Act
         double result = calculator.calculate(1.5, 50, false);
-
-        // Assert
         assertEquals(100.0, result);
     }
 
     @Test
     void shouldApplyWeightSurcharge() {
-        // Arrange
         RateCalculator calculator = new RateCalculator();
-
-        // Act
         double result = calculator.calculate(3.0, 50, false);
-
-        // Assert
         assertEquals(120.0, result);
     }
 
     @Test
     void shouldApplyRuralSurcharge() {
-        // Arrange
         RateCalculator calculator = new RateCalculator();
-
-        // Act
         double result = calculator.calculate(1.5, 50, true);
-
-        // Assert
         assertEquals(115.0, result, 0.0001);
+    }
+
+    @Test
+    void shouldCalculateRateForPackageEntity() {
+        RateCalculator calculator = new RateCalculator();
+        Package pkg = new Package(
+                PackageId.generate(),
+                new Weight(3.0),
+                new Dimensions(10, 10, 10),
+                new PostalCode("12345")
+        );
+        Distance dist = new Distance(50);
+        ShippingRate rate = calculator.calculate(pkg, dist, true);
+        assertEquals(138.0, rate.amount(), 0.0001);
     }
 }
