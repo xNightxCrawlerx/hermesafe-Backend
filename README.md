@@ -2,7 +2,7 @@
 
 [![Java Version](https://img.shields.io/badge/Java-21-orange.svg)](https://www.oracle.com/java/)
 [![Architecture](https://img.shields.io/badge/Architecture-Clean%20%2F%20DDD-blue.svg)]()
-[![Build & Test](https://img.shields.io/badge/Tests-Passing-brightgreen.svg)]()
+
 
 **Hermesafe** is a backend solution designed for logistics, inventory, and shipment management. Built with **Java 21**, the system strictly adheres to **Domain-Driven Design (DDD)**, **Clean Architecture**, and **Test-Driven Development (TDD)** principles.
 
