@@ -6,7 +6,7 @@
 [![Docker](https://img.shields.io/badge/Docker%20Compose-Enabled-2496ED.svg)](https://www.docker.com/)
 [![OpenAPI](https://img.shields.io/badge/Swagger-OpenAPI%203.0-green.svg)](https://swagger.io/)
 [![Architecture](https://img.shields.io/badge/Architecture-Clean%20%2F%20DDD-blue.svg)]()
-[![Tests](https://img.shields.io/badge/Tests-77%20Passing-brightgreen.svg)]()
+[![Build & Test](https://img.shields.io/badge/Tests-Passing-brightgreen.svg)]()
 
 **Hermesafe** is a robust, production-ready backend microservice designed for logistics, warehouse inventory, freight rate calculations, and automated route optimization. Built with **Java 21** and **Spring Boot 3.3.4**, the system strictly adheres to **Domain-Driven Design (DDD)**, **Clean Architecture**, and **Test-Driven Development (TDD)** principles.
 
