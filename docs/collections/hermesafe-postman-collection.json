@@ -1,0 +1,228 @@
+{
+  "info": {
+    "name": "Hermesafe Logistics API - Contract Tests",
+    "description": "Integration test collection for Hermesafe REST API endpoints (Orders, Stock, Shipping Rates, Routes, OpenAPI).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/api",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Orders & Inventory",
+      "item": [
+        {
+          "name": "Process Order - Success (200 OK)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productId\": \"PG-PROD-001\",\n  \"quantity\": 5\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders/process",
+              "host": ["{{baseUrl}}"],
+              "path": ["orders", "process"]
+            }
+          }
+        },
+        {
+          "name": "Process Order - Insufficient Stock (409 Conflict)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productId\": \"PG-PROD-001\",\n  \"quantity\": 99999\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders/process",
+              "host": ["{{baseUrl}}"],
+              "path": ["orders", "process"]
+            }
+          }
+        },
+        {
+          "name": "Get Product Stock (200 OK)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/orders/stock/PG-PROD-001",
+              "host": ["{{baseUrl}}"],
+              "path": ["orders", "stock", "PG-PROD-001"]
+            }
+          }
+        },
+        {
+          "name": "Add Stock to Catalog (200 OK)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/orders/stock?productId=PG-PROD-001&quantity=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["orders", "stock"],
+              "query": [
+                {
+                  "key": "productId",
+                  "value": "PG-PROD-001"
+                },
+                {
+                  "key": "quantity",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Shipping Rates",
+      "item": [
+        {
+          "name": "Calculate Rate (POST Body) - Success (200 OK)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"weightKg\": 3.0,\n  \"distanceKm\": 50,\n  \"rural\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/shipping-rates/calculate",
+              "host": ["{{baseUrl}}"],
+              "path": ["shipping-rates", "calculate"]
+            }
+          }
+        },
+        {
+          "name": "Calculate Rate (GET Query) - Success (200 OK)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/shipping-rates/calculate?weight=2.5&distance=30&rural=false",
+              "host": ["{{baseUrl}}"],
+              "path": ["shipping-rates", "calculate"],
+              "query": [
+                {
+                  "key": "weight",
+                  "value": "2.5"
+                },
+                {
+                  "key": "distance",
+                  "value": "30"
+                },
+                {
+                  "key": "rural",
+                  "value": "false"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Calculate Rate - Business Rule Violation (422 Unprocessable)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"weightKg\": -5.0,\n  \"distanceKm\": 50,\n  \"rural\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/shipping-rates/calculate",
+              "host": ["{{baseUrl}}"],
+              "path": ["shipping-rates", "calculate"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Routes & Coverage",
+      "item": [
+        {
+          "name": "Get Closest Warehouses (200 OK)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/routes/closest-warehouses",
+              "host": ["{{baseUrl}}"],
+              "path": ["routes", "closest-warehouses"]
+            }
+          }
+        },
+        {
+          "name": "Check City Coverage - Supported (200 OK)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/routes/coverage/Santiago",
+              "host": ["{{baseUrl}}"],
+              "path": ["routes", "coverage", "Santiago"]
+            }
+          }
+        },
+        {
+          "name": "Check City Coverage - Unsupported (200 OK)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/routes/coverage/PuntaArenas",
+              "host": ["{{baseUrl}}"],
+              "path": ["routes", "coverage", "PuntaArenas"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. OpenAPI & Documentation",
+      "item": [
+        {
+          "name": "Get OpenAPI 3.0 JSON Spec (200 OK)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api-docs",
+              "host": ["{{baseUrl}}"],
+              "path": ["api-docs"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
