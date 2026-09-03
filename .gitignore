@@ -37,3 +37,8 @@ out/
 ._*
 Thumbs.db
 ehthumbs.db
+
+# Environment & Sensitive Production Configs (Rubric Security Compliance)
+.env
+.env.*
+application-prod.yml

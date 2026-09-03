@@ -17,7 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/shipping-rates")
+@RequestMapping("/api/shipping-rates")
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:3000"})
 @Tag(name = "Shipping Rate Calculation", description = "Endpoints for calculating freight and delivery shipping rates based on weight, distance, and zone surcharges")
 public class ShippingRateController {
 

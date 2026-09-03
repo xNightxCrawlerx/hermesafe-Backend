@@ -20,6 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@SuppressWarnings("null")
 class ControllersTest {
 
     @Autowired
@@ -42,7 +43,7 @@ class ControllersTest {
     void shouldProcessOrderSuccessfully() throws Exception {
         ProcessOrderRequest request = new ProcessOrderRequest("ITEM-100", 5);
 
-        mockMvc.perform(post("/orders/process")
+        mockMvc.perform(post("/api/orders/process")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
@@ -55,7 +56,7 @@ class ControllersTest {
     void shouldRejectOrderWhenInsufficientStock() throws Exception {
         ProcessOrderRequest request = new ProcessOrderRequest("ITEM-100", 100);
 
-        mockMvc.perform(post("/orders/process")
+        mockMvc.perform(post("/api/orders/process")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isConflict())
@@ -66,7 +67,7 @@ class ControllersTest {
     void shouldCalculateShippingRateViaPost() throws Exception {
         CalculateRateRequest request = new CalculateRateRequest(3.0, 50, true);
 
-        mockMvc.perform(post("/shipping-rates/calculate")
+        mockMvc.perform(post("/api/shipping-rates/calculate")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
@@ -76,7 +77,7 @@ class ControllersTest {
 
     @Test
     void shouldCalculateShippingRateViaGet() throws Exception {
-        mockMvc.perform(get("/shipping-rates/calculate")
+        mockMvc.perform(get("/api/shipping-rates/calculate")
                         .param("weight", "1.5")
                         .param("distance", "20")
                         .param("rural", "false"))
@@ -86,14 +87,14 @@ class ControllersTest {
 
     @Test
     void shouldGetClosestWarehouses() throws Exception {
-        mockMvc.perform(get("/routes/closest-warehouses"))
+        mockMvc.perform(get("/api/routes/closest-warehouses"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray());
     }
 
     @Test
     void shouldCheckCityCoverage() throws Exception {
-        mockMvc.perform(get("/routes/coverage/Santiago"))
+        mockMvc.perform(get("/api/routes/coverage/Santiago"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.city").value("Santiago"))
                 .andExpect(jsonPath("$.covered").value(true));

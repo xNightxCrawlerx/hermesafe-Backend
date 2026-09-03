@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/routes")
+@RequestMapping("/api/routes")
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:3000"})
 @Tag(name = "Route Optimization & Coverage", description = "Endpoints for finding optimal warehouse dispatch paths and checking delivery zone coverage")
 public class RouteController {
 

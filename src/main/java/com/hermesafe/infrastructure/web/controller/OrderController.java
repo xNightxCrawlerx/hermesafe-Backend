@@ -20,7 +20,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/api/orders")
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:3000"})
 @Tag(name = "Order & Inventory Management", description = "Endpoints for processing customer orders and managing warehouse product inventory stock")
 public class OrderController {
 

@@ -15,6 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@SuppressWarnings("null")
 class GlobalExceptionHandlerTest {
 
     @Autowired
@@ -27,20 +28,20 @@ class GlobalExceptionHandlerTest {
     void shouldReturn400WhenNegativeWeightIsProvidedViaPost() throws Exception {
         CalculateRateRequest request = new CalculateRateRequest(-5.0, 50, false);
 
-        mockMvc.perform(post("/shipping-rates/calculate")
+        mockMvc.perform(post("/api/shipping-rates/calculate")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.status").value(400))
                 .andExpect(jsonPath("$.error").value("Bad Request"))
                 .andExpect(jsonPath("$.message").value("Weight must be positive :)"))
-                .andExpect(jsonPath("$.path").value("/shipping-rates/calculate"))
+                .andExpect(jsonPath("$.path").value("/api/shipping-rates/calculate"))
                 .andExpect(jsonPath("$.timestamp").exists());
     }
 
     @Test
     void shouldReturn400WhenNegativeDistanceIsProvidedViaGet() throws Exception {
-        mockMvc.perform(get("/shipping-rates/calculate")
+        mockMvc.perform(get("/api/shipping-rates/calculate")
                         .param("weight", "10.0")
                         .param("distance", "-20")
                         .param("rural", "false"))
@@ -48,7 +49,7 @@ class GlobalExceptionHandlerTest {
                 .andExpect(jsonPath("$.status").value(400))
                 .andExpect(jsonPath("$.error").value("Bad Request"))
                 .andExpect(jsonPath("$.message").value("Distance cannot be negative"))
-                .andExpect(jsonPath("$.path").value("/shipping-rates/calculate"))
+                .andExpect(jsonPath("$.path").value("/api/shipping-rates/calculate"))
                 .andExpect(jsonPath("$.timestamp").exists());
     }
 }

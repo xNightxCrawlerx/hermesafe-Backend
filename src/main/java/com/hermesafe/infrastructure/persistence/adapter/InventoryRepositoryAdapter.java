@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Component
+@SuppressWarnings("null")
 public class InventoryRepositoryAdapter implements InventoryRepository {
 
     private final SpringDataInventoryRepository springDataInventoryRepository;

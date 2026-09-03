@@ -2,9 +2,17 @@ spring:
   application:
     name: hermesafe
   profiles:
-    active: dev
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/hermesafe_db}
+    username: ${DB_USERNAME:hermesafe_user}
+    password: ${DB_PASSWORD:hermesafe_pass}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    show-sql: false
 
 server:
   port: 8080
-  servlet:
-    context-path: /api

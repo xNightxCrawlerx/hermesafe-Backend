@@ -78,4 +78,25 @@ public class ApplicationConfig {
     public OrderService orderService(InventoryRepository inventoryRepository) {
         return new OrderService(inventoryRepository);
     }
+
+    @Bean
+    public com.hermesafe.application.usecase.CreateShipmentUseCase createShipmentUseCase(com.hermesafe.domain.repository.ShipmentRepository shipmentRepository) {
+        return new com.hermesafe.application.usecase.CreateShipmentUseCase(shipmentRepository);
+    }
+
+    @Bean
+    public com.hermesafe.application.usecase.ListShipmentsUseCase listShipmentsUseCase(com.hermesafe.domain.repository.ShipmentRepository shipmentRepository) {
+        return new com.hermesafe.application.usecase.ListShipmentsUseCase(shipmentRepository);
+    }
+
+    @Bean
+    public com.hermesafe.application.usecase.GetShipmentUseCase getShipmentUseCase(com.hermesafe.domain.repository.ShipmentRepository shipmentRepository) {
+        return new com.hermesafe.application.usecase.GetShipmentUseCase(shipmentRepository);
+    }
+
+    @Bean
+    public com.hermesafe.application.usecase.UpdateShipmentStatusUseCase updateShipmentStatusUseCase(com.hermesafe.domain.repository.ShipmentRepository shipmentRepository) {
+        return new com.hermesafe.application.usecase.UpdateShipmentStatusUseCase(shipmentRepository);
+    }
 }
+

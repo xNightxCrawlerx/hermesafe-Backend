@@ -3,5 +3,6 @@ package com.hermesafe.domain.entity;
 public enum ShipmentStatus {
     PENDING,
     IN_TRANSIT,
-    DELIVERED
+    DELIVERED,
+    CANCELLED
 }
