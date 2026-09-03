@@ -13,9 +13,9 @@ Comprehensive logistics management, shipment tracking, freight rate calculation,
 ---
 
 ## 🔗 Reference Repositories
-* Core Domain / Milestone 1: https://github.com/sebavidal10/neonpulse-ticketera
-* Backend Spring Boot / Milestone 4: https://github.com/sebavidal10/neonpulse-api-springboot
-* Frontend Vite + TS / Milestone 2: https://github.com/sebavidal10/neonpulse-frontend
+* Core Domain / Milestone 1: https://github.com/xNightxCrawlerx/hermesafe
+* Backend Spring Boot / Milestone 4: https://github.com/xNightxCrawlerx/hermesafe-Backend
+* Frontend Vite + TS / Milestone 2: https://github.com/xNightxCrawlerx/hermesafe-frontend
 
 ---
 
@@ -52,6 +52,51 @@ npm install
 npm run dev
 ```
 * **Web App:** `http://localhost:5173`
+
+---
+
+## 📁 Project Directory Structure
+
+```text
+backend/
+├── src/
+│   ├── main/
+│   │   ├── java/com/hermesafe/
+│   │   │   ├── HermesafeApplication.java
+│   │   │   ├── domain/                         # 1. DOMAIN LAYER (Pure Java - Zero Frameworks)
+│   │   │   │   ├── entity/                     # Shipment, Order, Package, Route, Warehouse, InventoryItem
+│   │   │   │   ├── valueobject/                # Weight, Dimensions, Distance, ShippingRate, PostalCode, ProductId
+│   │   │   │   ├── exception/                  # Domain business exceptions (InsufficientStockException, etc.)
+│   │   │   │   ├── repository/                 # Pure interfaces: ShipmentRepository, InventoryRepository, OrderRepository
+│   │   │   │   └── service/                    # Domain services: RateCalculator, RouteOptimizer, InventoryManager
+│   │   │   ├── application/                    # 2. APPLICATION LAYER (Use Cases & Business Workflows)
+│   │   │   │   ├── usecase/                    # CreateShipmentUseCase, ListShipmentsUseCase, ProcessOrderUseCase, etc.
+│   │   │   │   └── service/                    # Application services: OrderService
+│   │   │   └── infrastructure/                 # 3. INFRASTRUCTURE LAYER (Spring Boot, JPA, Web)
+│   │   │       ├── web/
+│   │   │       │   ├── controller/             # REST Controllers: ShipmentController, OrderController, RouteController
+│   │   │       │   ├── exception/              # GlobalExceptionHandler (@RestControllerAdvice, ErrorResponse DTO)
+│   │   │       │   └── dto/                    # Request/Response payloads (CreateShipmentRequest, ShipmentDto, etc.)
+│   │   │       ├── persistence/
+│   │   │       │   ├── entity/                 # JPA Entities: ShipmentJpaEntity, InventoryItemEntity
+│   │   │       │   ├── repository/             # SpringDataShipmentRepository, SpringDataInventoryRepository
+│   │   │       │   ├── adapter/                # ShipmentRepositoryAdapter, InventoryRepositoryAdapter
+│   │   │       │   ├── mapper/                 # Bidirectional mappers: ShipmentMapper, InventoryItemMapper
+│   │   │       │   └── ShipmentDataSeeder.java # Automatic PostgreSQL database initial seeding
+│   │   │       └── config/                     # OpenApiConfig (@Profile("dev")), CorsConfig, ApplicationConfig
+│   │   └── resources/
+│   │       ├── application.yml                 # Environment variables & default datasource configuration
+│   │       ├── application-dev.yml             # Local dev profile with Swagger UI enabled
+│   │       └── application-prod.yml            # Hardened production profile (Swagger UI blocked)
+│   └── test/java/com/hermesafe/                # 4. TDD AUTOMATED TEST SUITE (JUnit 5 + Mockito + H2)
+│       ├── domain/                             # Pure unit tests (ShipmentTest, ValueObjectsTest, EntitiesTest)
+│       ├── application/                        # Mockito use case tests (CreateShipmentUseCaseTest, UseCasesTest)
+│       └── infrastructure/                     # WebMvc mock tests & PostgreSQL integration tests
+├── docker-compose.yml                          # Multi-container PostgreSQL 16 Alpine configuration
+├── mvnw / mvnw.cmd                             # Maven Wrapper executables
+├── pom.xml                                     # Maven project descriptor (Java 21, Spring Boot 3.3.4)
+└── README.md
+```
 
 ---
 
