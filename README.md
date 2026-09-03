@@ -13,7 +13,6 @@ Comprehensive logistics management, shipment tracking, freight rate calculation,
 ---
 
 ## 🔗 Reference Repositories
-* Core Domain / Milestone 1: https://github.com/xNightxCrawlerx/hermesafe
 * Backend Spring Boot / Milestone 4: https://github.com/xNightxCrawlerx/hermesafe-Backend
 * Frontend Vite + TS / Milestone 2: https://github.com/xNightxCrawlerx/hermesafe-frontend
 
